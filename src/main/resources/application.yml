@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: ai-home
+
+server:
+  port: 9111
+
+
+mp:
+  config:
+    token: Y24uemhhbmdkeC5haWhvbWU=

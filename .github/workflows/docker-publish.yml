@@ -1,0 +1,61 @@
+name: Ai-Home Docker Deploy
+
+on:
+  push:
+    branches:
+      - feature/workflow # 触发推送的分支
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+
+      - name: Build and Package Maven Project
+        run: mvn clean package -DskipTests
+
+      - name: Build Docker Image
+        run: docker build --tag zhangdx3987/ai-home:latest -f Dockerfile .
+
+      - name: Export Docker Image
+        run: docker image save zhangdx3987/ai-home:latest > ai-home.tar
+
+      - name: Copy Docker Image to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          port: 22
+          source: ai-home.tar
+          target: /tmp
+
+
+      - name: Load Docker image on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          port: 22
+          script: docker load -i /tmp/ai-home.tar ;
+            docker stop ai-home || true ;
+            docker rm ai-home || true ;
+            docker run --name ai-home -p 9111:9111 -d zhangdx3987/ai-home:latest
+
+      - name: Clean Up Local Docker Image
+        if: always()
+
+        run: docker rmi -f zhangdx3987/ai-home:latest ; rm -rf /tmp/ai-home.tar
