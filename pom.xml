@@ -50,7 +50,7 @@
   </dependencies>
 
   <build>
-    <finalName>blog-server</finalName>
+    <finalName>ai-home</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
