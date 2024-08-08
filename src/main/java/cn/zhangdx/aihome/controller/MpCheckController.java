@@ -1,7 +1,9 @@
 package cn.zhangdx.aihome.controller;
 
+import cn.hutool.crypto.SecureUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,13 +27,13 @@ public class MpCheckController {
     private String mpConfigToken;
 
     @GetMapping
-    public String checkApi(@RequestParam String signature, @RequestParam String timestamp, @RequestParam String nonce,
-                         @RequestParam String echostr) {
+    public ResponseEntity<String> checkApi(@RequestParam String signature, @RequestParam String timestamp, @RequestParam String nonce,
+                                   @RequestParam String echostr) {
         log.info("MpCheckController checkApi signature:{}, timestamp:{}, nonce:{}, echostr:{}", signature, timestamp, nonce, echostr);
         List<String> list = Arrays.asList(mpConfigToken, timestamp, nonce);
         Collections.sort(list);
-        String signatureStr = String.join("", list);
+        String signatureStr = SecureUtil.sha1(String.join("", list));
         log.info("MpCheckController checkApi signatureStr:{}", signatureStr);
-        return Objects.equals(signature, signatureStr) ? echostr : null;
+        return Objects.equals(signature, signatureStr) ? ResponseEntity.ok(echostr) : ResponseEntity.ok(null);
     }
 }
