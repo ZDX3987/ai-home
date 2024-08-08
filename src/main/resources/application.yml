@@ -4,6 +4,8 @@ spring:
 
 server:
   port: 9111
+  servlet:
+    context-path: /ai-home
 
 
 mp:
