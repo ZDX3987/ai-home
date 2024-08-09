@@ -2,17 +2,9 @@ spring:
   application:
     name: ai-home
   profiles:
-    active: dev
+    active: prod
 
 server:
   port: 9111
   servlet:
     context-path: /ai-home
-
-
-mp:
-  config:
-    app-id: wx14bcc1895acf6998
-    token: Y24uemhhbmdkeC5haWhvbWU
-    aes-key: O48zIqkqsIxKwoQp1oUHbttTxOO6wmQcUGkVzdEoeIv
-    app-secret: c8df760e62517d06137ed95c4e800611
