@@ -1,5 +1,7 @@
-package cn.zhangdx.aihome.message;
+package cn.zhangdx.aihome.message.common;
 
+import cn.zhangdx.aihome.message.MessageTypeEnum;
+import cn.zhangdx.aihome.platform.MessageSourcePlatformEnum;
 import lombok.Data;
 
 /**

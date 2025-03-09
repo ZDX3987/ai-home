@@ -1,6 +1,7 @@
 package cn.zhangdx.aihome.controller;
 
 import cn.hutool.crypto.SecureUtil;
+import cn.zhangdx.aihome.pojo.CommonRequestForm;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -43,7 +44,7 @@ public class MpCheckController {
         return Objects.equals(signature, signatureStr) ? ResponseEntity.ok(echostr) : ResponseEntity.ok(null);
     }
 
-    @PostMapping(consumes = "text/xml;charset=UTF-8", produces = "application/xml;charset=UTF-8")
+//    @PostMapping(consumes = "text/xml;charset=UTF-8", produces = "application/xml;charset=UTF-8")
     public String receiveMpMessage(@RequestBody String requestBody, @RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp,
                                  @RequestParam("nonce") String nonce, @RequestParam("openid") String openid,
                                  @RequestParam(name = "encrypt_type", required = false) String encType,
@@ -57,5 +58,10 @@ public class MpCheckController {
         }
         log.info("MpCheckController receiveMpMessage replyMessage:\n{}", replyMessage);
         return replyMessage;
+    }
+
+    @PostMapping(consumes = "text/xml;charset=UTF-8", produces = "application/xml;charset=UTF-8")
+    public String commonMessage(CommonRequestForm commonRequestForm, @RequestBody String requestBody) {
+        return "";
     }
 }
