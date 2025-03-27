@@ -4,3 +4,8 @@ mp:
     token: Y24uemhhbmdkeC5haWhvbWU
     aes-key: O48zIqkqsIxKwoQp1oUHbttTxOO6wmQcUGkVzdEoeIv
     app-secret: b3186979f7eb1e1e34395d845522488d
+
+chat-api:
+  deep-seek:
+    base-url: https://api.deepseek.com
+    token: sk-b2ef021fe742481f84b998fdf4cd9e97

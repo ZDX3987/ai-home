@@ -1,4 +1,4 @@
-package cn.zhangdx.aihome.pojo;
+package cn.zhangdx.aihome.pojo.form;
 
 import lombok.Data;
 

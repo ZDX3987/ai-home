@@ -1,6 +1,7 @@
 package cn.zhangdx.aihome.platform;
 
-import cn.zhangdx.aihome.message.common.UnifiedInternalMessage;
+import cn.zhangdx.aihome.message.common.UnifiedInputMessage;
+import cn.zhangdx.aihome.message.common.UnifiedOutMessage;
 
 /**
  * 外部平台消息解析器，定义支持各种平台的消息解析逻辑
@@ -14,7 +15,14 @@ public interface PlatformMessageParser {
      * @param sourceMessage 原始请求消息参数
      * @return 解析为内部消息处理的对象
      */
-    UnifiedInternalMessage parse(String sourceMessage);
+    UnifiedInputMessage parse(String sourceMessage);
+
+    /**
+     * 将统一的消息回复对象转换为外部平台接收的消息
+     * @param unifiedOutMessage 统一的消息回复对象
+     * @return 外部平台接收的消息
+     */
+    String format(UnifiedOutMessage unifiedOutMessage);
 
     /**
      * 支持的平台

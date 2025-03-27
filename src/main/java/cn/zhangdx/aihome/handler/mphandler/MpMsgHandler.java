@@ -19,8 +19,7 @@ public class MpMsgHandler implements WxMpMessageHandler {
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMpXmlMessage, Map<String, Object> map, WxMpService wxMpService,
                                     WxSessionManager wxSessionManager) throws WxErrorException {
         log.info("MpMsgHandler handle wxMpXmlMessage:{}", wxMpXmlMessage);
-        String content = "收到的消息内容：" + wxMpXmlMessage.getContent();
-        return WxMpXmlOutMessage.TEXT().content(content).fromUser(wxMpXmlMessage.getToUser())
+        return WxMpXmlOutMessage.TEXT().content(wxMpXmlMessage.getContent()).fromUser(wxMpXmlMessage.getToUser())
                 .toUser(wxMpXmlMessage.getFromUser()).build();
     }
 }

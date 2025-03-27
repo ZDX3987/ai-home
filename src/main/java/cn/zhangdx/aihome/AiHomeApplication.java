@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author zhangdx
  * @date 2024/8/8 15:40
  **/
+
 @SpringBootApplication
 public class AiHomeApplication {
 
